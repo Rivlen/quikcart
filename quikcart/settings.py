@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-STATICFILES_DIRS = [BASE_DIR / "static", "/var/www/static/", ]
+STATICFILES_DIRS = [BASE_DIR / "static", ]
 
 WSGI_APPLICATION = 'quikcart.wsgi.application'
 
