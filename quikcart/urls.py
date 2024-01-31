@@ -22,7 +22,7 @@ from main.views import HomePageView, ProductListView, ProductDetailView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name='home'),
-    path('products/', ProductListView.as_view(), name='product-list'),
-    path('products/<int:pk>/', ProductDetailView.as_view(), name='product-detail'),
+    path('product-list/', ProductListView.as_view(), name='shop-list'),
+    path('products/<int:pk>/', ProductDetailView.as_view(), name='shop-single'),
 ]
 
