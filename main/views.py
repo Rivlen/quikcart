@@ -1,8 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Product
 from main.models import Product, Category
 
 
@@ -11,10 +10,18 @@ class HomePageView(View):
         return render(request, 'index4.html')
 
 
-class ProductListView(ListView):
+class CategoryListView(ListView):
     model = Product
     template_name = 'shop-list.html'
     context_object_name = 'products'
+
+    def get_queryset(self):
+        """
+        Override the default queryset to return products from a specific category.
+        """
+        category_id = self.kwargs.get('pk')
+        category = get_object_or_404(Category, id=category_id)
+        return Product.objects.filter(categories=category)
 
 
 class ProductDetailView(DetailView):
