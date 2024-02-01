@@ -309,13 +309,9 @@
                     <div class="single-widget category">
                         <h3 class="title">Categories</h3>
                         <ul class="categor-list">
-                            <li><a href="#">T-shirts</a></li>
-                            <li><a href="#">jacket</a></li>
-                            <li><a href="#">jeans</a></li>
-                            <li><a href="#">sweatshirts</a></li>
-                            <li><a href="#">trousers</a></li>
-                            <li><a href="#">kitwears</a></li>
-                            <li><a href="#">accessories</a></li>
+                            {% for category in categories %}
+                            <li><a href="{% url 'shop-list' category.id %}">{{ category }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <!--/ End Single Widget -->
@@ -474,7 +470,7 @@
                                                        title="Quick View"
                                                        href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
                                                     <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                                    <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+{#                                                    <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>#}
                                                 </div>
                                                 <div class="product-action-2">
                                                     <a title="Add to cart" href="#">Add to cart</a>

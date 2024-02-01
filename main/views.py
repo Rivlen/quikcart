@@ -23,6 +23,14 @@ class CategoryListView(ListView):
         category = get_object_or_404(Category, id=category_id)
         return Product.objects.filter(categories=category)
 
+    def get_context_data(self, **kwargs):
+        """
+        Override the default context data to include the list of categories.
+        """
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
 
 class ProductDetailView(DetailView):
     model = Product
