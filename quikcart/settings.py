@@ -120,3 +120,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'userbase.User'
+
+# Where to redirect after a successful login
+LOGIN_REDIRECT_URL = '/'
+
+# Optionally, specify where to redirect for login,
+# e.g., if using @login_required decorator without specifying 'next' parameter
+LOGIN_URL = 'login'

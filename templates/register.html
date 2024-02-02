@@ -306,40 +306,45 @@
                     <h2>Register</h2>
                     <p>Please register in order to checkout more quickly</p>
                     <!-- Form -->
-                    <form class="form" method="post" action="#">
+                    <form class="form" method="post" action="{% url 'register' %}">
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Your Name<span>*</span></label>
-                                    <input type="text" name="name" placeholder="" required="required">
+                                    <!-- Adjust the name attribute to match your form field, e.g., username -->
+                                    <input type="text" name="username" placeholder="" required="required">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Your Email<span>*</span></label>
-                                    <input type="text" name="email" placeholder="" required="required">
+                                    <input type="email" name="email" placeholder="" required="required">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Your Password<span>*</span></label>
-                                    <input type="password" name="password" placeholder="" required="required">
+                                    <input type="password" name="password1" placeholder="" required="required">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Confirm Password<span>*</span></label>
-                                    <input type="password" name="password" placeholder="" required="required">
+                                    <!-- Ensure this name matches Django's expected name for the password confirmation -->
+                                    <input type="password" name="password2" placeholder="" required="required">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group login-btn">
                                     <button class="btn" type="submit">Register</button>
-                                    <a href="login.html" class="btn">Login</a>
+                                    <a href="{% url 'login' %}" class="btn">Login</a>
                                 </div>
                                 <div class="checkbox">
-                                    <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Sign
-                                        Up for Newsletter</label>
+                                    <!-- Adjust as necessary; this field is not handled by the default UserCreationForm -->
+                                    <label class="checkbox-inline" for="2">
+                                        <input name="news" id="2" type="checkbox">Sign Up for Newsletter
+                                    </label>
                                 </div>
                             </div>
                         </div>
