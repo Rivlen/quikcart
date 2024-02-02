@@ -87,7 +87,7 @@
                                 <li><i class="ti-location-pin"></i> Store location</li>
                                 <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
                                 <li><i class="ti-user"></i> <a href="#">My account</a></li>
-                                <li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
+                                <li><i class="ti-power-off"></i><a href="{% url "login" %}">Login</a></li>
                             </ul>
                         </div>
                         <!-- End Top Right -->
@@ -103,7 +103,7 @@
                 <div class="col-lg-2 col-md-2 col-12">
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="index.html"><img src="{% static 'images/logo.png' %}" alt="logo"></a>
+                        <a href="{% url "home" %}"><img src="{% static 'images/logo.png' %}" alt="logo"></a>
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->
@@ -221,7 +221,7 @@
                                             <li><a href="#">Pages<i class="ti-angle-down"></i></a>
                                                 <ul class="dropdown">
                                                     <li><a href="about-us.html">About Us</a></li>
-                                                    <li><a href="login.html">Login</a></li>
+                                                    <li><a href="{% url "login" %}">Login</a></li>
                                                     <li><a href="register.html">Register</a></li>
                                                     <li><a href="mail-success.html">Mail Success</a></li>
                                                     <li><a href="404.html">404</a></li>
