@@ -180,7 +180,7 @@
                                     <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="single-product">
                                             <div class="product-img">
-                                                <a href="product-details.html">
+                                                <a href="{% url "shop-single" product.id %}">
                                                     <img class="default-img" src="https://via.placeholder.com/550x750"
                                                          alt="#">
                                                     <img class="hover-img" src="https://via.placeholder.com/550x750"
@@ -207,7 +207,7 @@
                                                 <div class="product-price">
                                                     <span>{{ product.price }}</span>
                                                 </div>
-                                                <h3 class="title"><a href="product-details.html">{{ product }}</a></h3>
+                                                <h3 class="title"><a href="{% url "shop-single" product.id %}">{{ product }}</a></h3>
                                                 <div class="review-inner">
                                                     <div class="ratings">
                                                         <ul class="rating">
