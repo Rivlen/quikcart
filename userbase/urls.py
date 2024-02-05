@@ -1,4 +1,3 @@
-# userbase/urls.py
 from django.urls import path
 from .views import MemberSignUpView
 from django.contrib.auth import views as auth_views
