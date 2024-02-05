@@ -73,10 +73,8 @@
                     <div class="col-lg-4 col-md-12 col-12">
                         <!-- Top Left -->
                         <div class="top-left">
-                            <ul class="list-main">
-                                <li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
-                                <li><i class="ti-email"></i> support@shophub.com</li>
-                            </ul>
+                            <a><i class="ti-headphone-alt"></i> +060 (800) 801-582</a>
+                            <a><i class="ti-email"></i> support@shophub.com</a>
                         </div>
                         <!--/ End Top Left -->
                     </div>
@@ -126,9 +124,9 @@
                         <div class="search-bar">
                             <select>
                                 <option selected="selected">All Category</option>
-                                <option>watch</option>
-                                <option>mobile</option>
-                                <option>kid’s item</option>
+                                {% for category in categories_all %}
+                                    <option>{{ category }}</option>
+                                {% endfor %}
                             </select>
                             <form>
                                 <input name="search" placeholder="Search Products Here....." type="search">
@@ -198,15 +196,16 @@
                                 <div class="navbar-collapse">
                                     <div class="nav-inner">
                                         <ul class="nav main-menu menu navbar-nav">
-                                            <li class="active"><a href="#">Home<i class="ti-angle-down"></i></a>
+                                            <li class="active"><a>Categories<i class="ti-angle-down"></i></a>
                                                 <ul class="dropdown">
-                                                    <li><a href="index.html">Home Ecommerce V1</a></li>
-                                                    <li><a href="index2.html">Home Ecommerce V2</a></li>
-                                                    <li><a href="index3.html">Home Ecommerce V3</a></li>
-                                                    <li><a href="index4.html">Home Ecommerce V4</a></li>
+                                                    {% for category in categories_all %}
+                                                        <li>
+                                                            <a href="{% url 'shop-list' category.id %}">{{ category }}</a>
+                                                        </li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Product</a></li>
+                                            <li><a href="#">Products</a></li>
                                             <li><a href="#">Service</a></li>
                                             <li><a href="#">Shop<i class="ti-angle-down"></i><span
                                                     class="new">New</span></a>

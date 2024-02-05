@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
+
+from main.models import Category
 from .forms import MemberRegistrationForm
 from django.contrib.auth.models import Group
 
@@ -15,3 +17,10 @@ class MemberSignUpView(generic.CreateView):
         members_group = Group.objects.get(name='Members')  # Make sure 'Members' group exists
         self.object.groups.add(members_group)
         return response
+
+    def get_context_data(self, **kwargs):
+        """
+        Override the default context data to include the list of categories.
+        """
+        context = super().get_context_data(**kwargs)
+        return context
