@@ -1,4 +1,5 @@
 from django.db import models
+from userbase.models import User
 
 
 class Category(models.Model):
@@ -11,6 +12,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     categories = models.ManyToManyField(Category, related_name='products')
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products_sold')
     name = models.CharField(max_length=200)
     description = models.TextField()
     long_description = models.TextField(blank=True, null=True)
