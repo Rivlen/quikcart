@@ -35,12 +35,25 @@ class AddToCartView(View):
     def post(self, request, *args, **kwargs):
         product_id = request.POST.get('product_id')
         product = get_object_or_404(Product, id=product_id)
-        cart = request.session.get('cart', {})
 
-        if product_id in cart:
-            cart[product_id] += 1
+        try:
+            quantity = int(request.POST.get('quantity', 1))
+            if quantity <= 0:
+                messages.error(request, "Quantity must be at least 1.")
+                return redirect('product_detail', pk=product_id)
+        except ValueError:
+            messages.error(request, "Invalid quantity specified.")
+            return redirect('product_detail', pk=product_id)
+
+        cart = request.session.get('cart', {})
+        cart_quantity = cart.get(str(product_id), 0) + quantity
+
+        if cart_quantity > product.stock:
+            messages.error(request,
+                           f"Cannot add {quantity} units. Only {product.stock - cart.get(str(product_id), 0)} remaining in stock.")
+            return redirect('shop-single', pk=product_id)
         else:
-            cart[product_id] = 1
+            cart[str(product_id)] = cart_quantity
 
         request.session['cart'] = cart
         return redirect('cart')
