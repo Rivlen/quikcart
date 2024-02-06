@@ -34,7 +34,7 @@ class Order(models.Model):
         ('COD', 'Cash on Delivery'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders', null=True, blank=True)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
     payment_method = models.CharField(max_length=3, choices=PAYMENT_CHOICES, default='CC')
     name = models.CharField(max_length=100)
