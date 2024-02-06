@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1>User Profile</h1>
+            <!-- Link to Purchase History -->
+            <p><a href="{% url 'purchase-history' %}">View Purchase History</a></p>
+            <br>
+            <!-- Link to Add Product Page -->
+            <p><a href="{% url 'product-add' %}">Add a New Product</a></p>
+            <br>
+            <!-- Link to Update Products Page -->
+            <!-- Assuming you have a view that lists products with update options -->
+            <p><a href="{% url 'user-products' %}">Update Your Listed Products</a></p>
+            <br>
+        </div>
+    </div>
+{% endblock %}

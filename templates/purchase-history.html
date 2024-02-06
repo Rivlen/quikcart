@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h2>Purchase History</h2>
+            <ul>
+                {% for order in orders %}
+                    <li>Order ID: {{ order.id }} - Ordered on: {{ order.created_at }} -
+                        Total: {{ order.get_total_cost }}</li>
+                {% empty %}
+                    <li>No purchases found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

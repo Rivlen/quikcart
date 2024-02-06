@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h2>Your Listed Products</h2>
+            <ul>
+                {% for product in products %}
+                    <li><a href="{% url "product-update" product.id %}">{{ product.name }} - Price: {{ product.price }}</a><a
+                                        href="{% url 'product-delete' product.id %}"><i
+                                        class="ti-trash remove-icon"></i></a></li>
+                {% empty %}
+                    <li>You have not listed any products for sale.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

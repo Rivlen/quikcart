@@ -45,3 +45,6 @@ class ProductDetailView(DetailView):
         # Additionally, add in a QuerySet of all the categories for the product
         context['categories'] = self.object.categories.all()
         return context
+
+
+

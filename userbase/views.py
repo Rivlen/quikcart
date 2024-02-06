@@ -1,6 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic import TemplateView, ListView
 
+from checkout.models import Order
+from main.models import Product
 from .forms import MemberRegistrationForm
 from django.contrib.auth.models import Group
 
@@ -22,3 +26,32 @@ class MemberSignUpView(generic.CreateView):
         """
         context = super().get_context_data(**kwargs)
         return context
+
+
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'user-profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add any additional context data here if needed
+        return context
+
+
+class PurchaseHistoryView(LoginRequiredMixin, ListView):
+    model = Order
+    template_name = 'purchase-history.html'
+    context_object_name = 'orders'
+
+    def get_queryset(self):
+        """Filter orders to only those made by the current user."""
+        return Order.objects.filter(user=self.request.user).order_by('-created_at')
+
+
+class UserProductsView(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = 'user-products.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        """Filter products to only those listed by the current user."""
+        return Product.objects.filter(seller=self.request.user).order_by('-created_at')
