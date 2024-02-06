@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h2>Add New Product</h2>
+            <form method="post" enctype="multipart/form-data">  <!-- Include enctype if handling images -->
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save Product</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

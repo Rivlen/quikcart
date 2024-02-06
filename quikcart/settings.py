@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "main.apps.MainConfig",
     "userbase.apps.UserbaseConfig",
     "checkout.apps.CheckoutConfig",
+    "product_management.apps.ProductManagementConfig"
 ]
 
 MIDDLEWARE = [
