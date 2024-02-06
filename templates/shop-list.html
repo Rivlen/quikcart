@@ -195,7 +195,12 @@
                                                         {#                                                    <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>#}
                                                     </div>
                                                     <div class="product-action-2">
-                                                        <a title="Add to cart" href="#">Add to cart</a>
+                                                        <form action="{% url 'add-to-cart' %}" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="product_id"
+                                                                   value="{{ product.id }}">
+                                                            <button type="submit" class="btn">Add to cart</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -207,7 +212,8 @@
                                                 <div class="product-price">
                                                     <span>{{ product.price }}</span>
                                                 </div>
-                                                <h3 class="title"><a href="{% url "shop-single" product.id %}">{{ product }}</a></h3>
+                                                <h3 class="title"><a
+                                                        href="{% url "shop-single" product.id %}">{{ product }}</a></h3>
                                                 <div class="review-inner">
                                                     <div class="ratings">
                                                         <ul class="rating">

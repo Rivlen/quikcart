@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load cart_tags %}
 {% block content %}
     <!-- Breadcrumbs -->
     <div class="breadcrumbs">
@@ -46,17 +45,19 @@
                                 </td>
                                 <td class="price" data-title="Price"><span>${{ item.product.price }}</span></td>
                                 <td class="qty" data-title="Qty">
-                                    <!-- Input Order -->
-                                    <div class="input-group">
-                                        <input type="text" name="quant[{{ item.id }}]" class="input-number" data-min="1"
-                                               data-max="100" value="{{ item.quantity }}" readonly>
-                                    </div>
-                                    <!--/ End Input Order -->
+                                    <form action="{% url 'update-cart' item.product.id %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="input-group">
+                                            <input type="number" name="quantity" class="input-number" data-min="0"
+                                                   data-max="{{ item.product.stock }}" value="{{ item.quantity }}">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                    </form>
                                 </td>
-                                <td class="total-amount" data-title="Total">
-                                    <span>${{ item.quantity|multiply:item.product.price }}</span></td>
-                                <td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a>
-                                </td>
+                                <td class="total-amount" data-title="Total"><span>${{ item.total_item_price }}</span></td>
+                                <td class="action" data-title="Remove"><a
+                                        href="{% url 'remove-from-cart' item.product.id %}"><i
+                                        class="ti-trash remove-icon"></i></a></td>
                             </tr>
                         {% empty %}
                             <tr>
@@ -80,18 +81,10 @@
                             <div class="col-lg-4 col-md-7 col-12">
                                 <div class="right">
                                     <ul>
-                                        {% with total=0 %}
-                                            {% for item in cart_items %}
-                                                {% with item_total=item.product.price|multiply:item.quantity %}
-                                                    {% with total=total|add:item_total %}
-                                                    {% endwith %}
-                                                {% endwith %}
-                                            {% endfor %}
-                                            <li>Cart Subtotal<span>${{ total }}</span></li>
-                                        {% endwith %}
+                                        <li>Cart Subtotal<span>${{ total_price|floatformat:2 }}</span></li>
                                     </ul>
                                     <div class="button5">
-                                        <a href="#" class="btn">Checkout</a>
+                                        <a href="{% url "checkout" %}" class="btn">Checkout</a>
                                         <a href="#" class="btn">Continue shopping</a>
                                     </div>
                                 </div>

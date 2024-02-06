@@ -25,5 +25,5 @@ urlpatterns = [
     path('product-list/<int:pk>/', CategoryListView.as_view(), name='shop-list'),
     path('product/<int:pk>/', ProductDetailView.as_view(), name='shop-single'),
     path('user/', include('userbase.urls')),
-    path('my-orders/', include('checkout.urls')),
+    path('cart/', include('checkout.urls')),
 ]
