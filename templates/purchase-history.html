@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <h2>Purchase History</h2>
-            <ul>
+<div class="container mt-5 bottom-margin">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4">Purchase History</h2>
+            <div class="list-group">
                 {% for order in orders %}
-                    <li>Order ID: {{ order.id }} - Ordered on: {{ order.created_at }} -
-                        Total: {{ order.get_total_cost }}</li>
+                <a href="{% url 'order-detail' order.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Order ID: {{ order.id }}</h5>
+                        <small>Ordered on: {{ order.created_at|date:"F d, Y" }}</small>
+                    </div>
+                </a>
                 {% empty %}
-                    <li>No purchases found.</li>
+                <div class="list-group-item">
+                    <p>No purchases found.</p>
+                </div>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}

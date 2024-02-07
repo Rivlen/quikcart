@@ -12,7 +12,7 @@ class ProductAddView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'product-add.html'
-    success_url = reverse_lazy('shop-list', kwargs={'pk': 1})
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         form.instance.seller = self.request.user
@@ -48,7 +48,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         You might want to adjust this to redirect to the product detail view or any other view.
         """
         # Adjust the success_url as needed. This is just a placeholder.
-        return reverse_lazy('shop-list', kwargs={'pk': self.object.categories.first().id})
+        return reverse_lazy('home')
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
@@ -77,4 +77,4 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
         You might want to adjust this to redirect to a more appropriate view.
         """
         # Adjust the success_url as needed. This is just a placeholder.
-        return reverse_lazy('shop-list', kwargs={'pk': 1})  # Or any other URL you see fit
+        return reverse_lazy('home')  # Or any other URL you see fit

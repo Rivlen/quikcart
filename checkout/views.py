@@ -132,15 +132,15 @@ class CheckoutView(View):
 
             # Then create an Order instance
             order = Order.objects.create(
-                user=request.user,  # Assuming the user is logged in
+                user=request.user,
                 address=address,
                 payment_method=payment_method,
                 name=name,
                 surname=surname,
                 email=email,
                 phone_number=phone_number,
-                paid=False,  # Default value, adjust as necessary
-                status=Order.CART  # Default status, adjust as necessary
+                paid=False,
+                status=Order.PROCESSING
             )
 
             # Process cart items from session
@@ -172,4 +172,4 @@ class OrderConfirmationView(View):
         context = {
             'order': order,
         }
-        return render(request, 'order-confirmation.html', context)
+        return render(request, 'order-success.html', context)

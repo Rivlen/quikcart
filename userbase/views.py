@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
-from django.views import generic
+from django.contrib.auth.models import Group
+from django.views import generic, View
 from django.views.generic import TemplateView, ListView
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
 
 from checkout.models import Order
 from main.models import Product
 from .forms import MemberRegistrationForm
-from django.contrib.auth.models import Group
 
 
 class MemberSignUpView(generic.CreateView):
@@ -55,3 +56,14 @@ class UserProductsView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         """Filter products to only those listed by the current user."""
         return Product.objects.filter(seller=self.request.user).order_by('-created_at')
+
+
+class OrderDetailView(View):
+    def get(self, request, order_id):
+        order = get_object_or_404(Order, id=order_id)
+        order_items = order.items.all()
+        context = {
+            'order': order,
+            'order_items': order_items,
+        }
+        return render(request, 'order-detail.html', context)

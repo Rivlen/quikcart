@@ -1,24 +1,36 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <h1>User Profile</h1>
-            <!-- Link to Purchase History -->
-            <p><a href="{% url 'purchase-history' %}">View Purchase History</a></p>
-            <br>
-            <!-- Link to Add Product Page -->
-            <p><a href="{% url 'product-add' %}">Add a New Product</a></p>
-            <br>
-            <!-- Link to Update Products Page -->
-            <!-- Assuming you have a view that lists products with update options -->
-            <p><a href="{% url 'user-products' %}">Update Your Listed Products</a></p>
-            <br>
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Logout</button>
-            </form>
-            <br>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>User Profile</h1>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="{% url 'purchase-history' %}">View Purchase History</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{% url 'product-add' %}">Add a New Product</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{% url 'user-products' %}">Update Your Listed Products</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

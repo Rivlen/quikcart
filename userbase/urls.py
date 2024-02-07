@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
-from .views import MemberSignUpView, UserProfileView, PurchaseHistoryView, UserProductsView
+from .views import MemberSignUpView, UserProfileView, PurchaseHistoryView, UserProductsView, OrderDetailView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('profile/', UserProfileView.as_view(), name='user-profile'),
     path('purchases/', PurchaseHistoryView.as_view(), name='purchase-history'),
     path('products/', UserProductsView.as_view(), name='user-products'),
+    path('order/<int:order_id>/', OrderDetailView.as_view(), name='order-detail'),
 ]
