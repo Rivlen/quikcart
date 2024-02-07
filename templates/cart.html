@@ -27,7 +27,7 @@
                         <thead>
                         <tr class="main-hading">
                             <th>PRODUCT</th>
-                            <th>NAME</th>
+                            <th>DESCRIPTION</th>
                             <th class="text-center">UNIT PRICE</th>
                             <th class="text-center">QUANTITY</th>
                             <th class="text-center">TOTAL</th>
@@ -37,8 +37,7 @@
                         <tbody>
                         {% for item in cart_items %}
                             <tr>
-                                <td class="image" data-title="No"><img src="{{ item.product.image.url }}"
-                                                                       alt="{{ item.product.name }}"></td>
+                                <td class="image" data-title="No"><img src="https://via.placeholder.com/77x80"></td>
                                 <td class="product-des" data-title="Description">
                                     <p class="product-name"><a href="{% url "shop-single" item.product.id %}">{{ item.product.name }}</a></p>
                                     <p class="product-des">{{ item.product.description }}</p>

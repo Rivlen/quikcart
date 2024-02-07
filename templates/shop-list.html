@@ -26,7 +26,7 @@
                     <div class="shop-sidebar">
                         <!-- Single Widget -->
                         <div class="single-widget category">
-                            <h3 class="title">Categories</h3>
+                            <h3 class="title">{{ category_name }}</h3>
                             <ul class="categor-list">
                                 {% for category in categories %}
                                     <li><a href="{% url 'shop-list' category.id %}">{{ category }}</a></li>
@@ -125,19 +125,6 @@
                             </div>
                             <!-- End Single Post -->
                         </div>
-                        <!--/ End Single Widget -->
-                        <!-- Single Widget -->
-                        <div class="single-widget category">
-                            <h3 class="title">Manufacturers</h3>
-                            <ul class="categor-list">
-                                <li><a href="#">Forever</a></li>
-                                <li><a href="#">giordano</a></li>
-                                <li><a href="#">abercrombie</a></li>
-                                <li><a href="#">ecko united</a></li>
-                                <li><a href="#">zara</a></li>
-                            </ul>
-                        </div>
-                        <!--/ End Single Widget -->
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-8 col-12">
@@ -164,10 +151,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <ul class="view-mode">
-                                    <li><a href="shop-grid.html"><i class="fa fa-th-large"></i></a></li>
-                                    <li class="active"><a href="shop-list.html"><i class="fa fa-th-list"></i></a></li>
-                                </ul>
                             </div>
                             <!--/ End Shop Top -->
                         </div>
@@ -226,7 +209,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <p class="des">{{ product.long_description }}</p>
+                                            <p class="des">{{ product.description }}</p>
                                             <a href="#" class="btn">Buy Now!</a>
                                         </div>
                                     </div>
