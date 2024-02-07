@@ -46,7 +46,12 @@ class CategoryListView(ListView):
         Override the default context data to include the list of categories.
         """
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+        category_id = self.kwargs.get('pk')
+        context['categories'] = Category.objects.filter(parent_id=category_id)
+
+        # Provide category name
+        context['category_name'] = get_object_or_404(Category, id=category_id).name
+
         return context
 
 
