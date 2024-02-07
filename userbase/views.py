@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
+from django.http import HttpResponseForbidden
 from django.views import generic, View
 from django.views.generic import TemplateView, ListView
 from django.shortcuts import get_object_or_404, render
@@ -58,9 +59,15 @@ class UserProductsView(LoginRequiredMixin, ListView):
         return Product.objects.filter(seller=self.request.user).order_by('-created_at')
 
 
-class OrderDetailView(View):
+class OrderDetailView(LoginRequiredMixin, View):
     def get(self, request, order_id):
         order = get_object_or_404(Order, id=order_id)
+
+        # Check if the logged-in user is the same as the user who placed the order
+        if order.user != request.user:
+            # If not, return a forbidden response or redirect to another page
+            return HttpResponseForbidden("You are not allowed to view this order.")
+
         order_items = order.items.all()
         context = {
             'order': order,
