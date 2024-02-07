@@ -28,7 +28,7 @@ class HomePageView(ListView):
         return context
 
 
-class CategoryListView(ListView):
+class ProductListView(ListView):
     model = Product
     template_name = 'shop-list.html'
     context_object_name = 'products'
@@ -68,6 +68,3 @@ class ProductDetailView(DetailView):
         # Additionally, add in a QuerySet of all the categories for the product
         context['categories'] = self.object.categories.all()
         return context
-
-
-
