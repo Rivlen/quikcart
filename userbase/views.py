@@ -16,7 +16,7 @@ class MemberSignUpView(generic.CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        members_group = Group.objects.get(name='Members')
+        members_group = Group.objects.get(name='Member')
         self.object.groups.add(members_group)
         return response
 
