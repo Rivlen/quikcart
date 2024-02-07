@@ -5,6 +5,7 @@ from userbase.models import User
 class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
