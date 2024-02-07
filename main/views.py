@@ -5,9 +5,27 @@ from django.views.generic.detail import DetailView
 from main.models import Product, Category
 
 
-class HomePageView(View):
-    def get(self, request):
-        return render(request, 'index4.html')
+# class HomePageView(View):
+#     def get(self, request):
+#         return render(request, 'index4.html')
+
+
+# beta homepage
+class HomePageView(ListView):
+    model = Product
+    template_name = 'shop-list.html'
+    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        """
+        Override the default context data to include the list of categories.
+        """
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(parent__isnull=True)
+
+        context['category_name'] = "Category"
+
+        return context
 
 
 class CategoryListView(ListView):
