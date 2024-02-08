@@ -1,7 +1,7 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DeleteView
 
 from main.models import Product
@@ -19,7 +19,7 @@ class ProductAddView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'product-update.html'
@@ -32,16 +32,6 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         qs = super().get_queryset()
         return qs.filter(seller=self.request.user)
 
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Overriding the dispatch method to add additional checks
-        before proceeding with the GET or POST request.
-        """
-        obj = self.get_object()
-        if obj.seller != self.request.user:
-            raise PermissionDenied("You are not allowed to edit this product.")
-        return super().dispatch(request, *args, **kwargs)
-
     def get_success_url(self):
         """
         Redirects to the 'shop-list' of the current user's products after successful update.
@@ -50,8 +40,13 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         # Adjust the success_url as needed. This is just a placeholder.
         return reverse_lazy('home')
 
+    def test_func(self):
+        user = self.request.user
+        obj = self.get_object()
+        return obj.seller == user
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+
+class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Product
     template_name = 'product-delete.html'
 
@@ -62,15 +57,6 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
         qs = super().get_queryset()
         return qs.filter(seller=self.request.user)
 
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Adds additional security to ensure that only the seller can request deletion.
-        """
-        obj = self.get_object()
-        if obj.seller != self.request.user:
-            raise PermissionDenied("You are not allowed to delete this product.")
-        return super().dispatch(request, *args, **kwargs)
-
     def get_success_url(self):
         """
         Redirects to the 'shop-list' of the current user's products after successful deletion.
@@ -78,3 +64,8 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
         """
         # Adjust the success_url as needed. This is just a placeholder.
         return reverse_lazy('home')  # Or any other URL you see fit
+
+    def test_func(self):
+        user = self.request.user
+        obj = self.get_object()
+        return obj.seller == user
