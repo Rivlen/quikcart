@@ -40,10 +40,10 @@ class AddToCartView(View):
             quantity = int(request.POST.get('quantity', 1))
             if quantity <= 0:
                 messages.error(request, "Quantity must be at least 1.")
-                return redirect('product_detail', pk=product_id)
+                return redirect('shop-single', pk=product_id)
         except ValueError:
             messages.error(request, "Invalid quantity specified.")
-            return redirect('product_detail', pk=product_id)
+            return redirect('shop-single', pk=product_id)
 
         cart = request.session.get('cart', {})
         cart_quantity = cart.get(str(product_id), 0) + quantity
@@ -89,7 +89,7 @@ class RemoveFromCartView(View):
             del cart[str(product_id)]
 
         request.session['cart'] = cart
-        return redirect(reverse('cart'))  # Adjust 'cart' to your cart view's URL name
+        return redirect(reverse('cart'))
 
 
 class CheckoutView(View):
@@ -157,7 +157,7 @@ class CheckoutView(View):
             request.session['cart'] = {}
 
             messages.success(request, "Your order has been placed successfully!")
-            return redirect(reverse('order-confirmation', kwargs={'order_id': order.id}))
+            return redirect(reverse('order-success', kwargs={'order_id': order.id}))
 
         except Exception as e:
             messages.error(request, f"There was an error processing your order: {str(e)}")
