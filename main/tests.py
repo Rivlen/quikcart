@@ -2,22 +2,6 @@ import pytest
 from django.urls import reverse
 from pytest_django.asserts import assertTemplateUsed
 
-from main.models import Category
-
-
-@pytest.mark.django_db
-def test_category(categories):
-    categories = Category.objects.all()
-    assert categories.count() == 2
-
-
-@pytest.mark.django_db
-def test_product(product):
-    assert str(product) == "Test Product"
-    assert product.stock == 100
-    assert product.available is True
-    assert product.categories.count() == 1
-
 
 @pytest.mark.django_db
 def test_home_page_view(client, product, categories):

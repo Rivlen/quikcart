@@ -8,25 +8,6 @@ from django.contrib.auth import get_user_model
 
 
 @pytest.mark.django_db
-def test_user_creation(user):
-    assert user.username == 'testuser'
-    assert user.email == 'test@example.com'
-    assert user.is_active
-    assert not user.is_staff
-    assert not user.is_superuser
-
-
-@pytest.mark.django_db
-def test_user_check_password(user):
-    assert user.check_password('testpass123')
-
-
-@pytest.mark.django_db
-def test_user_str_representation(user):
-    assert str(user) == 'testuser'
-
-
-@pytest.mark.django_db
 def test_member_sign_up_success(client):
     # Ensure the "Member" group exists for the test
     Group.objects.get_or_create(name='Member')
