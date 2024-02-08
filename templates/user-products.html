@@ -1,18 +1,30 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block content %}
-    <div class="container">
+    <div class="container mt-5 bottom-margin">
         <div class="row">
-            <h2>Your Listed Products</h2>
-            <ul>
-                {% for product in products %}
-                    <li><a href="{% url "product-update" product.id %}">{{ product.name }} - Price: {{ product.price }}</a><a
-                                        href="{% url 'product-delete' product.id %}"><i
-                                        class="ti-trash remove-icon"></i></a></li>
-                {% empty %}
-                    <li>You have not listed any products for sale.</li>
-                {% endfor %}
-            </ul>
+            <div class="col-md-12">
+                <h2 class="mb-4">Your Listed Products</h2>
+                {% if products %}
+                    <div class="list-group">
+                        {% for product in products %}
+                            <div class="list-group-item d-flex justify-content-between align-items-center"
+                                 style="font-size: 1.1rem;">
+                                <a href="{% url 'product-update' product.id %}" class="text-decoration-none text-dark">
+                                    {{ product.name }} - Price: ${{ product.price }}
+                                </a>
+                                <a href="{% url 'product-delete' product.id %}" class="badge badge-danger"
+                                   style="text-decoration:none; font-size: 1.5rem;">
+                                    <i class="ti-trash"></i>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>You have not listed any products for sale.</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}
